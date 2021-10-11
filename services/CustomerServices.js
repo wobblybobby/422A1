@@ -1,4 +1,7 @@
 const customerModel = require("../models/CustomerModel.js");
+const bcrypt = require('bcryptjs');
+
+var currentId = -1;
 
 exports.getACustomer = (req, res) => {
     customerModel.findOne()
@@ -25,8 +28,13 @@ exports.getACustomer = (req, res) => {
 
 exports.registerACustomer = (req, res) => {
     const newCustomer = new customerModel(req.body);
-    
-    newCustomer.save()
+
+    bcrypt.genSalt(10)
+                .then(salt=>bcrypt.hash(req.body.password,salt))
+                .then(hash=> {
+                    newCustomer.password = hash;
+                    newCustomer.save()
+                })
     .then((doc) => {
         res.json({
             message : "Customer successfully registered",

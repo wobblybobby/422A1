@@ -17,10 +17,6 @@ exports.createAProduct = (req, res) => {
     })
 };
 
-/* exports.getAllProducts = (req, res) => {
-
-}; */
-
 exports.getAllCategories = (req, res) => {
     productModel.find()
         .then((product) => {
@@ -60,14 +56,6 @@ exports.getAllCategories = (req, res) => {
             })
         })
 };
-
-/* exports.getAllProductsInCategory = (req, res) => {
-
-};
-
-exports.getAllBestsellers = (req, res) => {
-
-}; */
 
 exports.getProducts = (req, res) => {
     if (req.query.id) {
@@ -156,98 +144,52 @@ exports.getProducts = (req, res) => {
     }
 };
 
-/* exports.getAProduct = (req, res) => {
-    productModel.findOne()
-    .where("prodID").equals(req.query.id)
-    .then((product)=> {
+exports.updateAProduct = (req, res) => {
+    productModel.findByIdAndUpdate(
+        req.params.id,
+        {
+            prodName : req.body.prodName,
+            prodPrice : req.body.prodPrice,
+            prodDesc : req.body.prodDesc,
+            prodCategory : req.body.prodCategory,
+            prodQty : req.body.prodQty,
+            bestSeller : req.body.bestSeller,
+            prodPhoto : req.body.prodPhoto
+        },
+        { new : true })
+    .then((product) => {
         if (!product) {
             res.status(404).json({
-                message : `Product with ID: ${req.query.id} not found`
+                message : `There is no product with this ID to update`
             });
         }
         else {
             res.json({
-                message : `Showing information for product id: ${req.query.id}`,
+                message : `Updated product:`,
                 data : product
             })
         }
-    })
-    .catch((err) => {
+    }).catch((err) => {
         res.status(500).json({
             message : `Error ${err}`
         })
     })
-}; */
-
-// exports.updateAProduct = (req, res) => {
-//     productModel.findByIdAndUpdate(req.params.id, {
-//         prodName : "habrush"
-//         /* prodPrice : req.body.price,
-//         prodDesc : req.body.desc,
-//         prodCategory : req.body.category,
-//         prodQty : req.body.quantity,
-//         bestSeller : req.body.bestseller,
-//         prodPhoto : req.body.photo */
-//     }, {new : true})
-//     .where("prodID").equals(req.params.id)
-//     .then(product => {
-//         console.log(product);
-//     })
-//     .catch((err) => {
-//         res.status(500).json({
-//             message : `Error ${err}`
-//         })
-//     })
-// };
-
-/* exports.updateAProduct = (req, res) => {
-    productModel.findByIdAndUpdate(req.params.id, {
-        prodName : req.body
-    }, {new : true})
-    .where("prodID").equals(req.params.id)
-    .then((doc) => {
-        res.json({
-            message : "Product successfully updated",
-            data : doc
-        })
-    })
-    .catch((err) => {
-        res.status(500).json({
-            message : `Error ${err}`
-        })
-    })
-}; */
-
-/* exports.updateAProduct = (req, res) => {
-    productModel.findByIdAndUpdate(
-        { prodID : req.params.id },
-        { prodName : req.body },
-        { new : true },
-        function (err, doc) {
-        if (err) {
-            res.status(500).json({
-                message : `Error ${err}`
-            })
-        }
-        else {
-            res.status(404).json({
-                message : `Product with ID: ${req.params.id} updated`,
-                data : doc
-            })
-        }
-    })
-}; */
-
-//Model.findByIdAndUpdate(id, updateObj, {new: true}, function(err, model)
-
+};
 
 exports.deleteAProduct = (req, res) => {
     productModel.findOneAndDelete()
         .where("prodID").equals(req.params.id)
-        .then(()=> {
-            res.status(404).json({
-                message : `Product with ID: ${req.params.id} deleted`
-            })
+        .then((product)=> {
+            if (!product) {
+                res.status(404).json({
+                    message : `There is no product with this ID to delete`
+                });
+            }
+            else {
+                res.status(404).json({
+                    message : `Product with ID: ${req.params.id} deleted`
+                })
+            }
         })
         .catch((err) => {
             res.status(500).json({

@@ -16,7 +16,8 @@ var customerSchema = new Schema({
     },
     email : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     password : {
         type : String,
@@ -26,6 +27,6 @@ var customerSchema = new Schema({
         type : String
     }]
 })
-const CustomerModel = mongoose.model('CustomerTest', customerSchema);
+const CustomerModel = mongoose.model('Customer', customerSchema);
 
 module.exports = CustomerModel;
