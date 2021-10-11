@@ -1,8 +1,6 @@
 const customerModel = require("../models/CustomerModel.js");
 const bcrypt = require('bcryptjs');
 
-var currentId = -1;
-
 exports.getACustomer = (req, res) => {
     customerModel.findOne()
     .where("custID").equals(req.query.id)
