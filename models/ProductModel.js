@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
+
 var productSchema = new Schema({
     prodID : {
         type : Number,
