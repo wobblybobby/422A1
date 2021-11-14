@@ -186,7 +186,7 @@ exports.deleteAProduct = (req, res) => {
                 });
             }
             else {
-                res.status(404).json({
+                res.json({
                     message : `Product with ID: ${req.params.id} deleted`
                 })
             }
