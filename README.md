@@ -24,3 +24,5 @@ For product, I have 8 endpoints:
 All of my endpoints have validation, whether it's through the services module or through the schema options itself. Furthermore, my POST method for creating customers also encrypts all passwords using bcrypt.
 
 I used environment variables both locally and assigned in heroku to hide my connection string for my mongodb database.
+
+testing
