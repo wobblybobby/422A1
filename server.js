@@ -14,7 +14,7 @@ const app = express();
 
 //
 const corsOptionsDelegate = function (req, callback) {
-    const allowlist = [`http://localhost:3000`, 'http://127.0.0.1:3000']
+    const allowlist = [`http://localhost:3000`, 'http://127.0.0.1:3000', 'https://stoic-curran-0ada72.netlify.app']
     let corsOptions;
     if (allowlist.indexOf(req.header('Origin')) !== -1) {
         corsOptions = { origin : true }
