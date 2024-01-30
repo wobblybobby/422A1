@@ -1,5 +1,5 @@
 Student: Bobby Li
-StudentID : 045895042
+StudentID : [redacted]
 
 WEB422NAA Assignment 1:
 
